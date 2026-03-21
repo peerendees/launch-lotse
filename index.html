@@ -544,6 +544,72 @@
     }
     .footer-links a:hover { color: var(--copper); }
 
+    /* ── Tool-Stack (Relaunch-Guide-Stil) ── */
+    .tool-stack {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 1.5rem 0 0;
+    }
+    .tool-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1.2rem;
+      border: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .tool-chip:not(:first-child) { border-left: none; }
+    .tool-chip:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+    .tool-chip:last-child { border-radius: 0 var(--radius) var(--radius) 0; }
+    .tool-chip .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--copper);
+      flex-shrink: 0;
+    }
+
+    /* ── Details/Mehr-Toggle ── */
+    .more-details {
+      margin-top: 0.75rem;
+    }
+    .more-toggle {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--copper);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.25rem 0;
+      transition: color 0.2s;
+    }
+    .more-toggle:hover { color: var(--copper-light); }
+    .more-content {
+      display: none;
+      margin-top: 0.5rem;
+      padding: 0.75rem 1rem;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+    .more-content.open { display: block; }
+    .more-content ol {
+      margin: 0.25rem 0 0 1.25rem;
+    }
+    .more-content li {
+      margin-bottom: 0.25rem;
+    }
+
     /* ── Responsive ── */
     @media (max-width: 1024px) {
       .section { padding: 2rem; }
@@ -595,8 +661,8 @@
     <div class="container">
       <div class="hero-plus">+</div>
       <h1 class="hero-title">Launch-<span>Lotse</span></h1>
-      <p class="hero-tagline">Von der Idee zur Live-Website — die Startrampe zeigt dir den Weg. Hier erfährst du, wie es funktioniert.</p>
-      <a href="https://startrampe.berent.ai" class="hero-cta" target="_blank" rel="noopener">Startrampe öffnen</a>
+      <p class="hero-tagline">Von der Idee zur Live-Website — die Startrampe zeigt dir den Weg. Hier erfährst du, wie sie funktioniert.</p>
+      <a href="https://startrampe.berent.ai" class="hero-cta" target="_blank" rel="noopener">Zur Startrampe gehen</a>
     </div>
   </section>
 
@@ -609,22 +675,22 @@
     </div>
 
     <!-- ══════════════════════════════════════════ -->
-    <!-- ── Was ist die Startrampe? ──────────────── -->
+    <!-- ── Das ist die Startrampe ─────────────── -->
     <!-- ══════════════════════════════════════════ -->
     <div class="section fade-up">
-      <h2 class="section-title"><span class="plus">+</span> Was ist die Startrampe?</h2>
-      <p class="body-text">Die <strong>Startrampe</strong> ist ein interaktives Werkzeug, das dich Schritt für Schritt vom leeren Projektordner bis zur fertigen Live-Website führt. Du gibst dein Projekt ein — die Startrampe generiert dir eine <strong>personalisierte Anleitung</strong> mit allen Befehlen, die du nur noch kopieren und ausführen musst.</p>
+      <h2 class="section-title"><span class="plus">+</span> Das ist die Startrampe</h2>
+      <p class="body-text">Die <strong>Startrampe</strong> ist eine interaktive Landingpage, die dich Schritt für Schritt vom leeren Projektordner bis zur fertigen Live-Website führt. Du beschreibst dein Projekt — die Startrampe generiert dir eine <strong>personalisierte Anleitung</strong> mit allen Befehlen, die du nur noch kopieren und ausführen musst.</p>
       <p class="body-text">Keine Vorkenntnisse im Deployment nötig. Kein Backend, keine Datenbank, kein Abo. Alles läuft direkt in deinem Browser.</p>
 
       <div class="feature-grid">
         <div class="feature-card">
           <div class="feature-icon">🎯</div>
           <h3>Personalisiert</h3>
-          <p>Jeder Befehl enthält deinen Projektnamen, GitHub-User und deine Subdomain.</p>
+          <p>Jeder Befehl enthält deinen Projektnamen, deinen GitHub-Benutzernamen und deine Subdomain.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">📋</div>
-          <h3>Copy und Paste</h3>
+          <h3>Kopieren und Einfügen</h3>
           <p>Alle Terminal-Befehle haben einen Kopier-Button — einfach einfügen und ausführen.</p>
         </div>
         <div class="feature-card">
@@ -634,52 +700,132 @@
         </div>
         <div class="feature-card">
           <div class="feature-icon">⚡</div>
-          <h3>In 15 Minuten live</h3>
+          <h3>In fünfzehn Minuten live</h3>
           <p>Vom leeren Ordner bis zur fertigen Subdomain — in einer Kaffeepause erledigt.</p>
         </div>
       </div>
     </div>
 
     <!-- ══════════════════════════════════════════ -->
-    <!-- ── Voraussetzungen ─────────────────────── -->
+    <!-- ── Tech-Stack ────────────────────────── -->
     <!-- ══════════════════════════════════════════ -->
     <div class="section fade-up">
-      <h2 class="section-title"><span class="plus">+</span> Was brauchst du?</h2>
+      <h2 class="section-title"><span class="plus">+</span> Der Tech-Stack</h2>
+      <p class="body-text">Die Startrampe setzt auf vier Werkzeuge. Alle sind kostenlos nutzbar.</p>
+
+      <div class="tool-stack">
+        <div class="tool-chip"><span class="dot"></span>Claude Code</div>
+        <div class="tool-chip"><span class="dot"></span>GitHub</div>
+        <div class="tool-chip"><span class="dot"></span>Vercel</div>
+        <div class="tool-chip"><span class="dot"></span>Cloudflare</div>
+      </div>
+
+      <div class="beginner-only" style="margin-top:1.5rem;">
+        <ul class="checklist">
+          <li>
+            <span class="check-icon">1</span>
+            <span class="check-label"><strong>Claude Code</strong> — Dein KI-gestützter Editor. Schreibt Code, erstellt Dateien und führt Terminal-Befehle für dich aus.</span>
+          </li>
+          <li>
+            <span class="check-icon">2</span>
+            <span class="check-label"><strong>GitHub</strong> — Eine Online-Plattform, auf der dein Code als sogenanntes Repository (eine Sammlung aller Projektdateien) gespeichert wird.</span>
+          </li>
+          <li>
+            <span class="check-icon">3</span>
+            <span class="check-label"><strong>Vercel</strong> — Ein Hosting-Dienst, der dein Projekt automatisch aus GitHub holt und als Website ins Internet stellt.</span>
+          </li>
+          <li>
+            <span class="check-icon">4</span>
+            <span class="check-label"><strong>Cloudflare</strong> — Ein DNS-Dienst. DNS funktioniert wie ein Telefonbuch für das Internet — es sagt dem Browser, wo deine Seite liegt.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- ── Das benötigst du ──────────────────── -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="section fade-up">
+      <h2 class="section-title"><span class="plus">+</span> Das benötigst du</h2>
 
       <!-- Einsteiger-Version -->
       <div class="beginner-only">
-        <p class="body-text">Bevor du die Startrampe nutzt, richte diese drei kostenlosen Konten ein. Falls du schon welche hast, überspringe die jeweiligen Punkte.</p>
+        <p class="body-text">Bevor du die Startrampe nutzt, richte diese kostenlosen Konten ein. Falls du bereits welche hast, überspringe die jeweiligen Punkte.</p>
 
         <ul class="checklist">
           <li>
             <span class="check-icon">1</span>
-            <span class="check-label"><strong>GitHub-Konto</strong> — Hier wird dein Code gespeichert. GitHub ist kostenlos und braucht nur eine E-Mail-Adresse.</span>
+            <span class="check-label"><strong>GitHub-Konto</strong> — Hier wird dein Code gespeichert. Die Registrierung erfordert lediglich eine E-Mail-Adresse.</span>
             <a class="check-link" href="https://github.com/signup" target="_blank" rel="noopener">Konto erstellen →</a>
+          </li>
+          <li class="more-details">
+            <span class="check-icon"></span>
+            <span class="check-label">
+              <button class="more-toggle" onclick="toggleMore(this)">▸ Mehr erfahren</button>
+              <div class="more-content">
+                <ol>
+                  <li>Öffne <a href="https://github.com/signup" target="_blank" rel="noopener">github.com/signup</a></li>
+                  <li>E-Mail-Adresse eingeben und Passwort wählen</li>
+                  <li>Benutzernamen festlegen — diesen benötigst du gleich in der Startrampe</li>
+                  <li>E-Mail bestätigen</li>
+                  <li>Den kostenlosen „Free"-Plan auswählen</li>
+                </ol>
+              </div>
+            </span>
           </li>
           <li>
             <span class="check-icon">2</span>
             <span class="check-label"><strong>Vercel-Konto</strong> — Vercel stellt deine Website ins Internet. Am einfachsten: Mit deinem GitHub-Konto anmelden.</span>
             <a class="check-link" href="https://vercel.com/signup" target="_blank" rel="noopener">Konto erstellen →</a>
           </li>
+          <li class="more-details">
+            <span class="check-icon"></span>
+            <span class="check-label">
+              <button class="more-toggle" onclick="toggleMore(this)">▸ Mehr erfahren</button>
+              <div class="more-content">
+                <ol>
+                  <li>Öffne <a href="https://vercel.com/signup" target="_blank" rel="noopener">vercel.com/signup</a></li>
+                  <li>Wähle „Continue with GitHub"</li>
+                  <li>Autorisiere den Zugriff auf dein GitHub-Konto</li>
+                  <li>Fertig — kein separates Passwort nötig</li>
+                </ol>
+              </div>
+            </span>
+          </li>
           <li>
             <span class="check-icon">3</span>
-            <span class="check-label"><strong>Cloudflare-Konto</strong> — Cloudflare verwaltet deine Domain und leitet Besucher zu deiner Website. Ebenfalls kostenlos.</span>
+            <span class="check-label"><strong>Cloudflare-Konto</strong> — Cloudflare verwaltet deine Domain und leitet Besucher zu deiner Website.</span>
             <a class="check-link" href="https://dash.cloudflare.com/sign-up" target="_blank" rel="noopener">Konto erstellen →</a>
+          </li>
+          <li class="more-details">
+            <span class="check-icon"></span>
+            <span class="check-label">
+              <button class="more-toggle" onclick="toggleMore(this)">▸ Mehr erfahren</button>
+              <div class="more-content">
+                <ol>
+                  <li>Öffne <a href="https://dash.cloudflare.com/sign-up" target="_blank" rel="noopener">dash.cloudflare.com/sign-up</a></li>
+                  <li>E-Mail und Passwort eingeben</li>
+                  <li>Deine Domain hinzufügen (z. B. <code>deine-domain.de</code>)</li>
+                  <li>Den kostenlosen „Free"-Plan auswählen</li>
+                  <li>Nameserver bei deinem Domain-Anbieter auf Cloudflare umstellen</li>
+                </ol>
+              </div>
+            </span>
           </li>
           <li>
             <span class="check-icon">4</span>
-            <span class="check-label"><strong>Git installiert</strong> — Ein Versionskontrollsystem, das auf den meisten Macs schon vorinstalliert ist. Teste mit <code>git --version</code> im Terminal.</span>
+            <span class="check-label"><strong>Git installiert</strong> — Ein Versionskontrollsystem, das auf den meisten Macs vorinstalliert ist. Teste mit <code>git --version</code> im Terminal.</span>
             <a class="check-link" href="https://git-scm.com/downloads" target="_blank" rel="noopener">Herunterladen →</a>
           </li>
           <li>
             <span class="check-icon">5</span>
-            <span class="check-label"><strong>Eine eigene Domain</strong> — Deine Subdomain wird unter deiner Domain eingerichtet (z. B. <code>mein-projekt.deine-domain.de</code>).</span>
+            <span class="check-label"><strong>Eine eigene Domain</strong> — Deine Subdomain wird unter deiner Domain eingerichtet (z. B. <code>dein-projekt.deine-domain.de</code>).</span>
           </li>
         </ul>
 
         <div class="hint-box">
           <span class="hint-icon">+</span>
-          <p>Alle Dienste sind in der kostenlosen Stufe völlig ausreichend. Du brauchst nirgends ein Bezahl-Abo.</p>
+          <p>Alle Dienste sind in der kostenlosen Stufe völlig ausreichend. Du benötigst nirgends ein Bezahl-Abo.</p>
         </div>
       </div>
 
@@ -694,7 +840,7 @@
     <!-- ══════════════════════════════════════════ -->
     <div class="section fade-up">
       <h2 class="section-title"><span class="plus">+</span> So funktioniert es</h2>
-      <p class="body-text">Die Startrampe führt dich durch <strong>6 Schritte</strong>. Du füllst ein kurzes Formular aus — den Rest erledigt die Startrampe für dich.</p>
+      <p class="body-text">Die Startrampe führt dich durch <strong>sechs Schritte</strong>. Du füllst ein kurzes Formular aus — den Rest erledigt die Startrampe für dich.</p>
 
       <div class="flow-steps">
         <div class="flow-step">
@@ -708,21 +854,27 @@
           <span class="flow-num">2</span>
           <div class="flow-step-content">
             <h3>Projekt lokal anlegen</h3>
-            <p>Du bekommst die passenden Befehle für dein System — Ordner erstellen, Editor öffnen, erste <code>index.html</code> anlegen. Alles zum Kopieren bereit.</p>
+            <p>Du bekommst die passenden Befehle für dein System — Ordner erstellen, Editor öffnen, erste <code>index.html</code> anlegen. Wenn du Claude Code nutzt, startest du eine Sitzung in deinem Projektordner und lässt die KI die Dateien für dich erstellen.</p>
+            <div class="beginner-only" style="margin-top:0.5rem;">
+              <div class="hint-box" style="margin:0;">
+                <span class="hint-icon">+</span>
+                <p>Claude Code muss beim Start wissen, in welchem Ordner dein Projekt liegt. Du gibst dazu beim Sitzungsstart den Pfad zu deinem lokalen Projektordner an — so kann Claude Code dort Dateien anlegen und Befehle ausführen.</p>
+              </div>
+            </div>
           </div>
         </div>
         <div class="flow-step">
           <span class="flow-num">3</span>
           <div class="flow-step-content">
             <h3>Git und GitHub</h3>
-            <p>Git wird initialisiert, dein Code committet und ein neues GitHub-Repository angelegt. Die Push-Befehle enthalten bereits deinen Benutzernamen und Repo-Namen.</p>
+            <p>Git wird initialisiert, dein Code committet und ein neues GitHub-Repository (eine Online-Sammlung deiner Projektdateien) angelegt. Die Push-Befehle enthalten bereits deinen Benutzernamen und Repo-Namen.</p>
           </div>
         </div>
         <div class="flow-step">
           <span class="flow-num">4</span>
           <div class="flow-step-content">
             <h3>Vercel-Deployment</h3>
-            <p>Du importierst dein GitHub-Repo in Vercel. Ein Klick auf „Deploy" — und deine Seite ist unter einer Vercel-Preview-URL erreichbar.</p>
+            <p>Du importierst dein GitHub-Repository in Vercel. Ein Klick auf „Deploy" — und deine Seite ist unter einer Vercel-Preview-URL erreichbar.</p>
           </div>
         </div>
         <div class="flow-step">
@@ -736,19 +888,19 @@
           <span class="flow-num">6</span>
           <div class="flow-step-content">
             <h3>Live!</h3>
-            <p>SSL-Zertifikat wird automatisch erstellt. Nach wenigen Minuten ist dein Projekt unter deiner Subdomain erreichbar. Jeder zukünftige <code>git push</code> aktualisiert die Seite automatisch.</p>
+            <p>Das SSL-Zertifikat wird automatisch erstellt. Nach wenigen Minuten ist dein Projekt unter deiner Subdomain erreichbar. Jeder zukünftige <code>git push</code> aktualisiert die Seite automatisch.</p>
           </div>
         </div>
       </div>
     </div>
 
     <!-- ══════════════════════════════════════════ -->
-    <!-- ── Was du eingeben musst ────────────────── -->
+    <!-- ── Das musst du eingeben ─────────────── -->
     <!-- ══════════════════════════════════════════ -->
     <div class="section fade-up">
-      <h2 class="section-title"><span class="plus">+</span> Was du eingeben musst</h2>
+      <h2 class="section-title"><span class="plus">+</span> Das musst du eingeben</h2>
 
-      <p class="body-text">Die Startrampe braucht nur <strong>vier Angaben</strong> von dir. Alles andere wird automatisch abgeleitet.</p>
+      <p class="body-text">Die Startrampe benötigt nur <strong>vier Angaben</strong> von dir. Alles andere wird automatisch abgeleitet.</p>
 
       <ul class="checklist">
         <li>
@@ -765,42 +917,42 @@
         </li>
         <li>
           <span class="check-icon done">✓</span>
-          <span class="check-label"><strong>Entwicklungsumgebung</strong> — Claude Code, Cursor, VS Code oder Terminal. Bestimmt die Arbeitsschritte.</span>
+          <span class="check-label"><strong>Entwicklungsumgebung</strong> — Claude Code, Cursor, VS Code oder Terminal. Bestimmt die Arbeitsschritte. Für Einsteiger empfehlen wir Claude Code.</span>
         </li>
       </ul>
 
       <div class="hint-box beginner-only">
         <span class="hint-icon">+</span>
-        <p>Projektname, Subdomain und Repo-Name werden automatisch aus deiner Beschreibung abgeleitet. Du kannst sie jederzeit manuell anpassen, bevor du die Anleitung generierst.</p>
+        <p>Projektname, Subdomain und Repository-Name (die Bezeichnung deiner Projektsammlung auf GitHub) werden automatisch aus deiner Beschreibung abgeleitet. Du kannst sie jederzeit manuell anpassen, bevor du die Anleitung generierst.</p>
       </div>
     </div>
 
     <!-- ══════════════════════════════════════════ -->
-    <!-- ── Für wen? ────────────────────────────── -->
+    <!-- ── Die Startrampe ist für dich ────────── -->
     <!-- ══════════════════════════════════════════ -->
     <div class="section fade-up">
-      <h2 class="section-title"><span class="plus">+</span> Für wen ist die Startrampe?</h2>
+      <h2 class="section-title"><span class="plus">+</span> Die Startrampe ist für dich</h2>
 
       <div class="feature-grid">
         <div class="feature-card">
-          <div class="feature-icon">🚀</div>
-          <h3>Workshop-Teilnehmer</h3>
-          <p>Du bist in einem BERENT-Workshop und sollst dein Projekt live schalten? Die Startrampe führt dich Schritt für Schritt.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">💼</div>
-          <h3>Kunden und Partner</h3>
-          <p>Du möchtest eine Landing Page, ein kleines Tool oder eine Portfolio-Seite unter deiner Domain veröffentlichen? Hier geht es los.</p>
-        </div>
-        <div class="feature-card">
           <div class="feature-icon">🎓</div>
           <h3>Einsteiger</h3>
-          <p>Noch nie eine Website deployed? Kein Problem. Die Startrampe erklärt jeden Schritt und jeden Begriff — keine Vorkenntnisse nötig.</p>
+          <p>Noch nie eine Website deployed? Die Startrampe erklärt jeden Schritt und jeden Begriff — keine Vorkenntnisse nötig.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">⚙️</div>
           <h3>Fortgeschrittene</h3>
           <p>Du kennst Git und Vercel? Dann nutze die Startrampe als schnellen Befehlsgenerator — kompakt, ohne lange Erklärungen.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💼</div>
+          <h3>Kunden und Partner</h3>
+          <p>Du möchtest eine Landingpage, ein kleines Tool oder eine Portfolio-Seite unter deiner Domain veröffentlichen? Hier geht es los.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🚀</div>
+          <h3>Workshop-Teilnehmer</h3>
+          <p>Du bist in einem BERENT-Workshop und sollst dein Projekt live schalten? Die Startrampe führt dich Schritt für Schritt.</p>
         </div>
       </div>
     </div>
@@ -810,8 +962,8 @@
     <!-- ══════════════════════════════════════════ -->
     <div class="cta-box fade-up">
       <h2><span style="color:var(--gold);">+</span> Bereit?</h2>
-      <p>Öffne die Startrampe und bring dein Projekt in unter 15 Minuten online.</p>
-      <a href="https://startrampe.berent.ai" class="hero-cta" target="_blank" rel="noopener">Startrampe öffnen</a>
+      <p>Öffne die Startrampe und bring dein Projekt in unter fünfzehn Minuten online.</p>
+      <a href="https://startrampe.berent.ai" class="hero-cta" target="_blank" rel="noopener">Zur Startrampe gehen</a>
     </div>
 
   </div>
@@ -855,6 +1007,13 @@
       }
       updateIcons();
     })();
+    /* ── Mehr-Toggle ── */
+    function toggleMore(btn) {
+      var content = btn.nextElementSibling;
+      content.classList.toggle('open');
+      btn.textContent = content.classList.contains('open') ? '▾ Weniger' : '▸ Mehr erfahren';
+    }
+
     /* ── Niveau-Toggle ── */
     var levelBtns = document.querySelectorAll('.level-btn');
     levelBtns.forEach(function(btn) {
