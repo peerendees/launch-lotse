@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Launch-Lotse | BERENT.AI</title>
+  <meta name="description" content="Schritt für Schritt von der Idee zur Live-Website. Der Launch-Lotse erklärt dir, wie du die Startrampe nutzt.">
+  <link rel="icon" type="image/webp" href="assets/images/BE_Farbe_V3.webp">
+  <style>
+    /* ── Fonts (lokal gehostet, DSGVO-konform) ── */
+    @font-face {
+      font-family: 'Bebas Neue';
+      src: url('assets/fonts/bebas-neue-regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Lora';
+      src: url('assets/fonts/lora-300.woff2') format('woff2');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Lora';
+      src: url('assets/fonts/lora-400.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Lora';
+      src: url('assets/fonts/lora-600.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      src: url('assets/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ── CSS Custom Properties ── */
+    :root {
+      --bg: #090806;
+      --bg2: #0e0c09;
+      --surface: #110e0a;
+      --surface-hover: #161209;
+      --border: #2a2118;
+      --border-light: #3a3228;
+      --copper: #B5742A;
+      --copper-light: #cc8c3e;
+      --copper-dark: #7a4e1c;
+      --gold: #E8C98A;
+      --text: #C4BCB1;
+      --text-bright: #FAF7F2;
+      --muted: #7A6A58;
+      --code-bg: #0a0908;
+      --success: #3a8b4a;
+      --font-headline: 'Bebas Neue', 'Arial Black', sans-serif;
+      --font-body: 'Lora', 'Georgia', serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --max-width: 960px;
+      --radius: 8px;
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      font-weight: 300;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+
+    /* ── Grain und Glow (wie Textschmiede) ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      top: -20%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(181,116,42,0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Container ── */
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Header ── */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+      position: relative;
+      z-index: 10;
+    }
+    .header-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+    .header-logo {
+      height: 32px;
+      width: auto;
+    }
+    .header-plus {
+      color: var(--gold);
+      font-family: var(--font-headline);
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+    .header-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── Hero (Textschmiede-Stil) ── */
+    .hero {
+      text-align: center;
+      padding: 4rem 0 3rem;
+    }
+    .hero-plus {
+      color: var(--gold);
+      font-family: var(--font-headline);
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+    .hero-title {
+      font-family: var(--font-headline);
+      font-size: 4rem;
+      color: var(--text-bright);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      line-height: 1.05;
+      margin-bottom: 0.5rem;
+    }
+    .hero-title span {
+      color: var(--copper);
+    }
+    .hero-tagline {
+      font-size: 1.15rem;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 540px;
+      margin: 0 auto 2rem;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 2.5rem;
+      background: var(--copper);
+      color: var(--bg);
+      font-family: var(--font-headline);
+      font-size: 1.3rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .hero-cta:hover {
+      background: var(--copper-light);
+      transform: translateY(-1px);
+    }
+
+    /* ── Niveau-Toggle ── */
+    .level-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin: 0 auto 3rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      width: fit-content;
+    }
+    .level-btn {
+      padding: 0.6rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      background: var(--code-bg);
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .level-btn.active {
+      background: var(--copper);
+      color: var(--bg);
+    }
+    .level-btn:hover:not(.active) {
+      color: var(--text);
+    }
+
+    /* ── Sections ── */
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+    }
+    .section-title {
+      font-family: var(--font-headline);
+      font-size: 1.6rem;
+      color: var(--text-bright);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .section-title .plus {
+      color: var(--gold);
+      font-family: var(--font-headline);
+      font-size: 1.2rem;
+    }
+
+    /* ── Texte ── */
+    .body-text {
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    .body-text:last-child { margin-bottom: 0; }
+    .body-text a {
+      color: var(--copper);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .body-text a:hover { color: var(--copper-light); }
+    .body-text strong { color: var(--text-bright); font-weight: 600; }
+    .body-text code {
+      font-family: var(--font-mono);
+      font-size: 0.85em;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.15em 0.4em;
+      color: var(--copper-light);
+    }
+
+    /* ── Ablauf-Schritte ── */
+    .flow-steps {
+      display: grid;
+      gap: 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .flow-step {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+    .flow-num {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--copper);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--copper);
+      margin-top: 0.15rem;
+    }
+    .flow-step-content h3 {
+      font-family: var(--font-headline);
+      font-size: 1.15rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-bright);
+      margin-bottom: 0.25rem;
+    }
+    .flow-step-content p {
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── Checkliste ── */
+    .checklist {
+      list-style: none;
+      margin: 1rem 0;
+    }
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist .check-icon {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 0.1rem;
+    }
+    .checklist .check-icon.done {
+      border-color: var(--copper);
+      color: var(--copper);
+    }
+    .checklist .check-label { color: var(--text); }
+    .checklist .check-link {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--copper);
+      text-decoration: none;
+      margin-left: auto;
+      white-space: nowrap;
+    }
+    .checklist .check-link:hover { text-decoration: underline; }
+
+    /* ── Einsteiger-Inhalte ── */
+    .beginner-only { display: none; }
+    body.level-einsteiger .beginner-only { display: block; }
+    body.level-einsteiger .advanced-compact { display: none; }
+
+    /* ── Hinweis-Box ── */
+    .hint-box {
+      border-left: 3px solid var(--copper);
+      background: var(--bg2);
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+    .hint-box .hint-icon {
+      color: var(--gold);
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+      font-family: var(--font-headline);
+    }
+    .hint-box p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* ── Feature-Grid ── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .feature-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+    .feature-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .feature-card h3 {
+      font-family: var(--font-headline);
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-bright);
+      margin-bottom: 0.4rem;
+    }
+    .feature-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── CTA-Box ── */
+    .cta-box {
+      background: var(--surface);
+      border: 2px solid var(--copper);
+      border-radius: 12px;
+      padding: 3rem;
+      text-align: center;
+      margin: 2rem 0 0;
+    }
+    .cta-box h2 {
+      font-family: var(--font-headline);
+      font-size: 2rem;
+      color: var(--text-bright);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.5rem;
+    }
+    .cta-box p {
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      margin-top: 3rem;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .footer-logo { height: 24px; width: auto; }
+    .footer-plus {
+      color: var(--gold);
+      font-family: var(--font-headline);
+      font-size: 1rem;
+    }
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-links a {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--copper); }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .section { padding: 2rem; }
+      .hero-title { font-size: 3.2rem; }
+    }
+    @media (max-width: 640px) {
+      .hero { padding: 3rem 0 2rem; }
+      .hero-title { font-size: 2.4rem; }
+      .hero-tagline { font-size: 1rem; }
+      .section { padding: 1.5rem; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .flow-step { gap: 1rem; }
+      .flow-num { width: 34px; height: 34px; font-size: 0.75rem; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .cta-box { padding: 2rem 1.5rem; }
+    }
+
+    /* ── Animations ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="level-einsteiger">
+
+  <!-- ── Header ── -->
+  <header>
+    <div class="header-inner">
+      <a href="https://berent.ai" class="header-brand">
+        <img src="assets/images/logo_farbe_v3.webp" alt="BERENT.AI" class="header-logo">
+        <span class="header-plus">+</span>
+      </a>
+      <span class="header-label">Guides</span>
+    </div>
+  </header>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-plus">+</div>
+      <h1 class="hero-title">Launch-<span>Lotse</span></h1>
+      <p class="hero-tagline">Von der Idee zur Live-Website — die Startrampe zeigt dir den Weg. Hier erfährst du, wie es funktioniert.</p>
+      <a href="https://startrampe.berent.ai" class="hero-cta" target="_blank" rel="noopener">Startrampe öffnen</a>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- ── Niveau-Toggle ── -->
+    <div class="level-bar">
+      <button class="level-btn active" data-level="einsteiger">Einsteiger</button>
+      <button class="level-btn" data-level="fortgeschritten">Fortgeschritten</button>
+    </div>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- ── Was ist die Startrampe? ──────────────── -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="section fade-up">
+      <h2 class="section-title"><span class="plus">+</span> Was ist die Startrampe?</h2>
+      <p class="body-text">Die <strong>Startrampe</strong> ist ein interaktives Werkzeug, das dich Schritt für Schritt vom leeren Projektordner bis zur fertigen Live-Website führt. Du gibst dein Projekt ein — die Startrampe generiert dir eine <strong>personalisierte Anleitung</strong> mit allen Befehlen, die du nur noch kopieren und ausführen musst.</p>
+      <p class="body-text">Keine Vorkenntnisse im Deployment nötig. Kein Backend, keine Datenbank, kein Abo. Alles läuft direkt in deinem Browser.</p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Personalisiert</h3>
+          <p>Jeder Befehl enthält deinen Projektnamen, GitHub-User und deine Subdomain.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📋</div>
+          <h3>Copy und Paste</h3>
+          <p>Alle Terminal-Befehle haben einen Kopier-Button — einfach einfügen und ausführen.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>Privat</h3>
+          <p>Nichts verlässt deinen Browser. Kein Account, kein Tracking, keine Daten auf Servern.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>In 15 Minuten live</h3>
+          <p>Vom leeren Ordner bis zur fertigen Subdomain — in einer Kaffeepause erledigt.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- ── Voraussetzungen ─────────────────────── -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="section fade-up">
+      <h2 class="section-title"><span class="plus">+</span> Was brauchst du?</h2>
+
+      <!-- Einsteiger-Version -->
+      <div class="beginner-only">
+        <p class="body-text">Bevor du die Startrampe nutzt, richte diese drei kostenlosen Konten ein. Falls du schon welche hast, überspringe die jeweiligen Punkte.</p>
+
+        <ul class="checklist">
+          <li>
+            <span class="check-icon">1</span>
+            <span class="check-label"><strong>GitHub-Konto</strong> — Hier wird dein Code gespeichert. GitHub ist kostenlos und braucht nur eine E-Mail-Adresse.</span>
+            <a class="check-link" href="https://github.com/signup" target="_blank" rel="noopener">Konto erstellen →</a>
+          </li>
+          <li>
+            <span class="check-icon">2</span>
+            <span class="check-label"><strong>Vercel-Konto</strong> — Vercel stellt deine Website ins Internet. Am einfachsten: Mit deinem GitHub-Konto anmelden.</span>
+            <a class="check-link" href="https://vercel.com/signup" target="_blank" rel="noopener">Konto erstellen →</a>
+          </li>
+          <li>
+            <span class="check-icon">3</span>
+            <span class="check-label"><strong>Cloudflare-Konto</strong> — Cloudflare verwaltet deine Domain und leitet Besucher zu deiner Website. Ebenfalls kostenlos.</span>
+            <a class="check-link" href="https://dash.cloudflare.com/sign-up" target="_blank" rel="noopener">Konto erstellen →</a>
+          </li>
+          <li>
+            <span class="check-icon">4</span>
+            <span class="check-label"><strong>Git installiert</strong> — Ein Versionskontrollsystem, das auf den meisten Macs schon vorinstalliert ist. Teste mit <code>git --version</code> im Terminal.</span>
+            <a class="check-link" href="https://git-scm.com/downloads" target="_blank" rel="noopener">Herunterladen →</a>
+          </li>
+          <li>
+            <span class="check-icon">5</span>
+            <span class="check-label"><strong>Eine eigene Domain</strong> — Deine Subdomain wird unter deiner Domain eingerichtet (z. B. <code>mein-projekt.deine-domain.de</code>).</span>
+          </li>
+        </ul>
+
+        <div class="hint-box">
+          <span class="hint-icon">+</span>
+          <p>Alle Dienste sind in der kostenlosen Stufe völlig ausreichend. Du brauchst nirgends ein Bezahl-Abo.</p>
+        </div>
+      </div>
+
+      <!-- Fortgeschrittene-Version -->
+      <div class="advanced-compact">
+        <p class="body-text">Stelle sicher, dass du Konten bei <strong>GitHub</strong>, <strong>Vercel</strong> und <strong>Cloudflare</strong> hast, <strong>Git</strong> installiert ist und du eine <strong>eigene Domain</strong> besitzt, die in Cloudflare verwaltet wird.</p>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- ── So funktioniert es ──────────────────── -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="section fade-up">
+      <h2 class="section-title"><span class="plus">+</span> So funktioniert es</h2>
+      <p class="body-text">Die Startrampe führt dich durch <strong>6 Schritte</strong>. Du füllst ein kurzes Formular aus — den Rest erledigt die Startrampe für dich.</p>
+
+      <div class="flow-steps">
+        <div class="flow-step">
+          <span class="flow-num">1</span>
+          <div class="flow-step-content">
+            <h3>Eingaben</h3>
+            <p>Beschreib dein Projekt, gib deinen GitHub-Benutzernamen ein und wähle dein Betriebssystem und deine Entwicklungsumgebung. Aus deiner Beschreibung werden Projektname und Subdomain automatisch abgeleitet.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <span class="flow-num">2</span>
+          <div class="flow-step-content">
+            <h3>Projekt lokal anlegen</h3>
+            <p>Du bekommst die passenden Befehle für dein System — Ordner erstellen, Editor öffnen, erste <code>index.html</code> anlegen. Alles zum Kopieren bereit.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <span class="flow-num">3</span>
+          <div class="flow-step-content">
+            <h3>Git und GitHub</h3>
+            <p>Git wird initialisiert, dein Code committet und ein neues GitHub-Repository angelegt. Die Push-Befehle enthalten bereits deinen Benutzernamen und Repo-Namen.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <span class="flow-num">4</span>
+          <div class="flow-step-content">
+            <h3>Vercel-Deployment</h3>
+            <p>Du importierst dein GitHub-Repo in Vercel. Ein Klick auf „Deploy" — und deine Seite ist unter einer Vercel-Preview-URL erreichbar.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <span class="flow-num">5</span>
+          <div class="flow-step-content">
+            <h3>Custom Domain einrichten</h3>
+            <p>Du fügst deine Wunsch-Subdomain in Vercel hinzu und setzt einen CNAME-Eintrag in Cloudflare. Die Startrampe zeigt dir genau, welche Werte wohin gehören.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <span class="flow-num">6</span>
+          <div class="flow-step-content">
+            <h3>Live!</h3>
+            <p>SSL-Zertifikat wird automatisch erstellt. Nach wenigen Minuten ist dein Projekt unter deiner Subdomain erreichbar. Jeder zukünftige <code>git push</code> aktualisiert die Seite automatisch.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- ── Was du eingeben musst ────────────────── -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="section fade-up">
+      <h2 class="section-title"><span class="plus">+</span> Was du eingeben musst</h2>
+
+      <p class="body-text">Die Startrampe braucht nur <strong>vier Angaben</strong> von dir. Alles andere wird automatisch abgeleitet.</p>
+
+      <ul class="checklist">
+        <li>
+          <span class="check-icon done">✓</span>
+          <span class="check-label"><strong>Projektbeschreibung</strong> — Ein bis zwei Sätze, z. B. „Ein Kalorien-Rechner für meine Ernährungsberatung". Daraus leitet die Startrampe den Projektnamen ab.</span>
+        </li>
+        <li>
+          <span class="check-icon done">✓</span>
+          <span class="check-label"><strong>GitHub-Benutzername</strong> — Dein Login-Name auf GitHub, z. B. <code>maxmustermann</code>.</span>
+        </li>
+        <li>
+          <span class="check-icon done">✓</span>
+          <span class="check-label"><strong>Betriebssystem</strong> — macOS, Windows oder Linux. Bestimmt die Terminal-Befehle.</span>
+        </li>
+        <li>
+          <span class="check-icon done">✓</span>
+          <span class="check-label"><strong>Entwicklungsumgebung</strong> — Claude Code, Cursor, VS Code oder Terminal. Bestimmt die Arbeitsschritte.</span>
+        </li>
+      </ul>
+
+      <div class="hint-box beginner-only">
+        <span class="hint-icon">+</span>
+        <p>Projektname, Subdomain und Repo-Name werden automatisch aus deiner Beschreibung abgeleitet. Du kannst sie jederzeit manuell anpassen, bevor du die Anleitung generierst.</p>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- ── Für wen? ────────────────────────────── -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="section fade-up">
+      <h2 class="section-title"><span class="plus">+</span> Für wen ist die Startrampe?</h2>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🚀</div>
+          <h3>Workshop-Teilnehmer</h3>
+          <p>Du bist in einem BERENT-Workshop und sollst dein Projekt live schalten? Die Startrampe führt dich Schritt für Schritt.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💼</div>
+          <h3>Kunden und Partner</h3>
+          <p>Du möchtest eine Landing Page, ein kleines Tool oder eine Portfolio-Seite unter deiner Domain veröffentlichen? Hier geht es los.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎓</div>
+          <h3>Einsteiger</h3>
+          <p>Noch nie eine Website deployed? Kein Problem. Die Startrampe erklärt jeden Schritt und jeden Begriff — keine Vorkenntnisse nötig.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚙️</div>
+          <h3>Fortgeschrittene</h3>
+          <p>Du kennst Git und Vercel? Dann nutze die Startrampe als schnellen Befehlsgenerator — kompakt, ohne lange Erklärungen.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- ── CTA ─────────────────────────────────── -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="cta-box fade-up">
+      <h2><span style="color:var(--gold);">+</span> Bereit?</h2>
+      <p>Öffne die Startrampe und bring dein Projekt in unter 15 Minuten online.</p>
+      <a href="https://startrampe.berent.ai" class="hero-cta" target="_blank" rel="noopener">Startrampe öffnen</a>
+    </div>
+
+  </div>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="assets/images/logo_farbe_v3.webp" alt="BERENT.AI" class="footer-logo">
+        <span class="footer-plus">+</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://berent.ai/impressum.html">Impressum</a>
+        <a href="https://berent.ai">berent.ai</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── JavaScript ── -->
+  <script>
+    /* ── Niveau-Toggle ── */
+    var levelBtns = document.querySelectorAll('.level-btn');
+    levelBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        levelBtns.forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        document.body.className = 'level-' + this.getAttribute('data-level');
+      });
+    });
+
+    /* ── Scroll-Animationen ── */
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-up').forEach(function(el) {
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
